@@ -1,9 +1,9 @@
 terraform {
   backend "remote" {
-    organization = "kon"
+    organization = "dmoiseenko"
 
     workspaces {
-      name = "terraform-iam"
+      name = "prj_kon_d"
     }
   }
 }
