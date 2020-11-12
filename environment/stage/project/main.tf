@@ -34,6 +34,7 @@ module "prj_kon_d" {
   admin_group_email             = gsuite_group.prj_kon_d_admin_group.email
   activate_apis                 = local.proj_kon_d_activate_apis
   default_service_account_roles = local.prj_kon_d_default_service_account_roles
+  
 }
 
 # resource "aws_instance" "foo" {
