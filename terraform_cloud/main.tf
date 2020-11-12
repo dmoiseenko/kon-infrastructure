@@ -27,8 +27,14 @@ resource "tfe_workspace" "group-kon-d" {
 resource "tfe_workspace" "prj_kon_d" {
   name                  = "prj_kon_d"
   organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = false
+  file_triggers_enabled = true
   queue_all_runs        = false
+
+  working_directory = "dev/project"
+
+  lifecycle {
+    ignore_changes = [vcs_repo]
+  }
 }
 
 resource "tfe_variable" "prj_kon_d_name" {
@@ -51,4 +57,27 @@ resource "tfe_workspace" "bootstrap" {
   file_triggers_enabled = false
   queue_all_runs        = false
   operations            = false
+}
+
+resource "tfe_workspace" "denis_dev" {
+  name                  = "denis_dev"
+  organization          = tfe_organization.dmoiseenko.id
+  file_triggers_enabled = false
+  queue_all_runs        = false
+}
+
+locals {
+  workspaces_with_billing_account_id = [
+    tfe_workspace.denis_dev.id,
+    tfe_workspace.prj_kon_d.id,
+  ]
+}
+
+resource "tfe_variable" "billing_account_id" {
+  count = length(local.workspaces_with_billing_account_id)
+
+  key          = "billing_account_id"
+  value        = var.billing_account_id
+  category     = "terraform"
+  workspace_id = local.workspaces_with_billing_account_id[count.index]
 }

@@ -32,10 +32,6 @@ resource "google_container_cluster" "primary" {
   node_config {
     service_account = var.default_service_account_email
   }
-
-  # lifecycle {
-  #   ignore_changes = [node_pool]
-  # }
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {

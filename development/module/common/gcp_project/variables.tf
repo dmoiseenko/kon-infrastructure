@@ -8,7 +8,7 @@ variable "folder_id" {
   description = "Folder Id"
 }
 
-variable "billing_account" {
+variable "billing_account_id" {
   type        = string
   description = "The Id of the billing account to associate this project with"
 }
@@ -41,14 +41,14 @@ variable "shared_vpc_subnet_names" {
   default = []
 }
 
-variable "admin_group_email" {
-  type = string
-}
+# variable "admin_group_email" {
+#   type = string
+# }
 
 variable "activate_apis" {
   type = list(string)
 }
 
-variable "default_service_account_roles" {
-  type = list(string)
-}
+# variable "default_service_account_roles" {
+#   type = list(string)
+# }

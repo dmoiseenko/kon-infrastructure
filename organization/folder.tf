@@ -8,7 +8,7 @@ resource "google_folder" "kon" {
   parent       = "organizations/${var.org_id}"
 }
 
-resource "google_folder" "kon_dev" {
+resource "google_folder" "development" {
   display_name = "development"
   parent = google_folder.kon.id
 }
