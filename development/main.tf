@@ -1,7 +1,3 @@
-locals {
-
-}
-
 module "development" {
   source = "./module/environment"
 
@@ -18,7 +14,7 @@ module "development" {
       subnet_ip             = "11.0.4.0/22"
       subnet_region         = "us-east1"
       subnet_private_access = "true"
-    }
+    },
   ]
 
   vpc_secondary_ranges = {

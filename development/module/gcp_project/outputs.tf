@@ -6,6 +6,6 @@ output "project_number" {
   value = google_project.main.number
 }
 
-output "default_service_account_email" {
-  value = google_service_account.default_service_account.email
+output "service_account_email" {
+  value = google_service_account.service_account.email
 }

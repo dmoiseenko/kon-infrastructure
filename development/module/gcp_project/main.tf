@@ -26,7 +26,7 @@ resource "google_project_default_service_accounts" "main" {
   ]
 }
 
-resource "google_service_account" "default_service_account" {
+resource "google_service_account" "service_account" {
   account_id   = "project-service-account"
   display_name = "${var.project_name} Project Service Account"
   project      = google_project.main.project_id

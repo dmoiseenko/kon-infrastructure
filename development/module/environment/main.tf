@@ -33,3 +33,31 @@ module "vpc" {
 
   depends_on = [module.host_project]
 }
+
+module "shared_vpc_host" {
+  source = "../shared_vpc_host"
+
+  project_id = module.host_project.project_id
+
+  depends_on = [
+    module.host_project
+  ]
+}
+
+module "shared_vpc_service" {
+  source = "../shared_vpc_service"
+
+  project_id                = module.app_project.project_id
+  project_number            = module.app_project.project_number
+  vpc_host_project_id       = module.host_project.project_id
+  shared_vpc_subnet_names   = [module.vpc.subnets_names[0]]
+  shared_vpc_subnet_regions = [module.vpc.subnets_regions[0]]
+  service_account_email     = module.app_project.service_account_email
+
+  depends_on = [
+    module.host_project,
+    module.app_project,
+    module.vpc,
+    module.shared_vpc_host,
+  ]
+}
