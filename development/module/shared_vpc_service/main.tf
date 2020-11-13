@@ -10,26 +10,26 @@ resource "google_compute_subnetwork_iam_member" "service_account_role_to_vpc_sub
   region     = var.shared_vpc_subnet_regions[count.index]
   subnetwork = var.shared_vpc_subnet_names[count.index]
   role       = "roles/compute.networkUser"
-  member     = "serviceAccount:${var.default_service_account_email}"
+  member     = "serviceAccount:${var.service_account_email}"
 
   depends_on = [
     google_compute_shared_vpc_service_project.shared_vpc_service
   ]
 }
 
-resource "google_compute_subnetwork_iam_member" "controlling_group_role_to_vpc_subnets" {
-  count = length(var.shared_vpc_subnet_names)
+# resource "google_compute_subnetwork_iam_member" "controlling_group_role_to_vpc_subnets" {
+#   count = length(var.shared_vpc_subnet_names)
 
-  project    = var.vpc_host_project_id
-  region     = var.shared_vpc_subnet_regions[count.index]
-  subnetwork = var.shared_vpc_subnet_names[count.index]
-  role       = "roles/compute.networkUser"
-  member     = "group:${var.admin_group_email}"
+#   project    = var.vpc_host_project_id
+#   region     = var.shared_vpc_subnet_regions[count.index]
+#   subnetwork = var.shared_vpc_subnet_names[count.index]
+#   role       = "roles/compute.networkUser"
+#   member     = "group:${var.admin_group_email}"
 
-  depends_on = [
-    google_compute_shared_vpc_service_project.shared_vpc_service
-  ]
-}
+#   depends_on = [
+#     google_compute_shared_vpc_service_project.shared_vpc_service
+#   ]
+# }
 
 resource "google_project_iam_member" "gke_host_agent" {
   project = var.vpc_host_project_id

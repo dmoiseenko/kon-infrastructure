@@ -22,10 +22,10 @@ variable "shared_vpc_subnet_names" {
   default = []
 }
 
-variable "admin_group_email" {
-  type    = string
-}
+# variable "admin_group_email" {
+#   type    = string
+# }
 
-variable "default_service_account_email" {
+variable "service_account_email" {
   type    = string
 }
