@@ -4,7 +4,7 @@ resource "tfe_organization" "dmoiseenko" {
 }
 
 resource "tfe_workspace" "org" {
-  name                  = "org"
+  name                  = "organization"
   organization          = tfe_organization.dmoiseenko.id
   file_triggers_enabled = false
   queue_all_runs        = false
@@ -13,42 +13,13 @@ resource "tfe_workspace" "org" {
 resource "tfe_workspace" "terraform_cloud" {
   name                  = "terraform_cloud"
   organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = false
-  queue_all_runs        = false
-}
-
-resource "tfe_workspace" "group-kon-d" {
-  name                  = "group_kon_d"
-  organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = false
-  queue_all_runs        = false
-}
-
-resource "tfe_workspace" "prj_kon_d" {
-  name                  = "prj_kon_d"
-  organization          = tfe_organization.dmoiseenko.id
   file_triggers_enabled = true
   queue_all_runs        = false
-
-  working_directory = "dev/project"
+  working_directory = "terraform_cloud/"
 
   lifecycle {
     ignore_changes = [vcs_repo]
   }
-}
-
-resource "tfe_variable" "prj_kon_d_name" {
-  key          = "prj_kon_d_name"
-  value        = "prj-kon-d"
-  category     = "terraform"
-  workspace_id = tfe_workspace.group-kon-d.id
-}
-
-resource "tfe_variable" "prj_kon_d_prj_kon_d_name" {
-  key          = "prj_kon_d_name"
-  value        = "prj-kon-d"
-  category     = "terraform"
-  workspace_id = tfe_workspace.prj_kon_d.id
 }
 
 resource "tfe_workspace" "bootstrap" {
@@ -62,14 +33,18 @@ resource "tfe_workspace" "bootstrap" {
 resource "tfe_workspace" "denis_dev" {
   name                  = "denis_dev"
   organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = false
+  file_triggers_enabled = true
   queue_all_runs        = false
+  working_directory = "development/"
+
+  lifecycle {
+    ignore_changes = [vcs_repo]
+  }
 }
 
 locals {
   workspaces_with_billing_account_id = [
     tfe_workspace.denis_dev.id,
-    tfe_workspace.prj_kon_d.id,
   ]
 }
 
