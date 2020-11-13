@@ -10,7 +10,7 @@ module "development" {
   billing_account_id = var.billing_account_id
   folder_id          = "937516052901"
 
-  network_name = "vpc_kon"
+  network_name = "vpc-kon"
 
   vpc_subnets = [
     {
