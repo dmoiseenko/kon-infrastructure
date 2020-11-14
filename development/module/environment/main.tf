@@ -61,3 +61,21 @@ module "shared_vpc_service" {
     module.shared_vpc_host,
   ]
 }
+
+module "gke" {
+  source = "../gke"
+
+  cluster_name                  = var.gke_name
+  project_id                    = module.app_project.project_id
+  network_self_link             = module.vpc.network_self_link
+  subnetwork_self_link          = module.vpc.subnets_self_links[0]
+  pods_ip_range_name            = module.vpc.subnets_secondary_ranges[0][1].range_name
+  services_ip_range_name        = module.vpc.subnets_secondary_ranges[0][0].range_name
+  default_service_account_email = module.app_project.service_account_email
+  location                      = var.gke_location
+
+  depends_on = [
+    module.shared_vpc_service,
+  ]
+}
+
