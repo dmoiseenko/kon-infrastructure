@@ -30,4 +30,7 @@ module "development" {
       },
     ]
   }
+
+  gke_name = "gke-d-app"
+  gke_location = "us-east1-b"
 }

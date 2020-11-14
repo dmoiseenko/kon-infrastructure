@@ -30,3 +30,10 @@ variable "asd" {
   type = string
   default = ""
 }
+variable "gke_location" {
+  type = string
+}
+
+variable "gke_name" {
+  type = string
+}
