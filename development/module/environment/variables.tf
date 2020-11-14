@@ -25,3 +25,8 @@ variable "vpc_subnets" {
 variable "vpc_secondary_ranges" {
   type = map(list(object({ range_name = string, ip_cidr_range = string })))
 }
+
+variable "asd" {
+  type = string
+  default = ""
+}
