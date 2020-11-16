@@ -27,10 +27,14 @@ resource "google_container_cluster" "primary" {
     }
   }
 
-  initial_node_count = 1
+  initial_node_count       = 1
   remove_default_node_pool = true
   node_config {
     service_account = var.default_service_account_email
+  }
+
+  workload_identity_config {
+    identity_namespace = "${var.project_id}.svc.id.goog"
   }
 }
 
