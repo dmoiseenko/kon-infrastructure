@@ -3,7 +3,7 @@
     organization = "dmoiseenko"
 
     workspaces {
-      name = "org"
+      name = "organization"
     }
   }
 }

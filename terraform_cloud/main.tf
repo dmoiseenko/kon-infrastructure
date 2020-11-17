@@ -36,9 +36,8 @@ resource "tfe_workspace" "bootstrap" {
 resource "tfe_workspace" "denis_dev" {
   name                  = "denis_dev"
   organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = true
+  file_triggers_enabled = false
   queue_all_runs        = false
-  working_directory = "development/"
 
   lifecycle {
     ignore_changes = [vcs_repo]
@@ -47,10 +46,11 @@ resource "tfe_workspace" "denis_dev" {
 
 locals {
   host_project_name_development = "prj-kon-d"
-  app_project_name_development = "prj-kon-app-d"
+  app_project_name_development  = "prj-kon-app-d"
   workspaces_with_billing_account_id = [
     tfe_workspace.denis_dev.id,
   ]
+  development_folder_id = data.terraform_remote_state.organization.outputs.development_folder_id
 }
 
 resource "tfe_variable" "billing_account_id" {
@@ -75,6 +75,14 @@ resource "tfe_variable" "app_project_name_development" {
   category     = "terraform"
   workspace_id = tfe_workspace.denis_dev.id
 }
+
+resource "tfe_variable" "development_folder_id" {
+  key          = "folder_id"
+  value        = local.development_folder_id
+  category     = "terraform"
+  workspace_id = tfe_workspace.denis_dev.id
+}
+
 
 data "terraform_remote_state" "organization" {
   backend = "remote"

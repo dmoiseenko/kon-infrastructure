@@ -1,10 +1,10 @@
 module "development" {
   source = "./module/environment"
 
-  host_project_name  = "aasdasdasd"
-  app_project_name   = "basddffff"
+  host_project_name  = var.host_project_name
+  app_project_name   = var.app_project_name
   billing_account_id = var.billing_account_id
-  folder_id          = "937516052901"
+  folder_id          = var.folder_id
 
   vpc_network_name = "vpc-kon"
   vpc_subnets = [
