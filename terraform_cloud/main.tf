@@ -43,6 +43,8 @@ resource "tfe_workspace" "denis_dev" {
 }
 
 locals {
+  host_project_name_development = "prj-kon-d"
+  app_project_name_development = "prj-kon-app-d"
   workspaces_with_billing_account_id = [
     tfe_workspace.denis_dev.id,
   ]
@@ -55,4 +57,18 @@ resource "tfe_variable" "billing_account_id" {
   value        = var.billing_account_id
   category     = "terraform"
   workspace_id = local.workspaces_with_billing_account_id[count.index]
+}
+
+resource "tfe_variable" "host_project_name_development" {
+  key          = "host_project_name"
+  value        = local.host_project_name_development
+  category     = "terraform"
+  workspace_id = tfe_workspace.denis_dev.id
+}
+
+resource "tfe_variable" "app_project_name_development" {
+  key          = "app_project_name"
+  value        = local.app_project_name_development
+  category     = "terraform"
+  workspace_id = tfe_workspace.denis_dev.id
 }
