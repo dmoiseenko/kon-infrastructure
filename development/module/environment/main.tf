@@ -22,6 +22,17 @@ module "app_project" {
   ]
 }
 
+module "iam" {
+  source = "../iam"
+
+  gke_project_id            = module.app_project.project_id
+  gke_service_account_email = module.app_project.service_account_email
+
+  depends_on = [
+    module.app_project
+  ]
+}
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "2.5.0"
@@ -31,7 +42,9 @@ module "vpc" {
   subnets          = var.vpc_subnets
   secondary_ranges = var.vpc_secondary_ranges
 
-  depends_on = [module.host_project]
+  depends_on = [
+    module.host_project
+  ]
 }
 
 module "shared_vpc_host" {
