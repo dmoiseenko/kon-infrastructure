@@ -17,6 +17,10 @@ terraform {
       version = "0.1.56"
       source  = "DeviaVir/gsuite"
     }
+    tfe = {
+      source = "hashicorp/tfe"
+      version = "0.22.0"
+    }
   }
 }
 
@@ -34,4 +38,7 @@ provider "google-beta" {
 }
 
 provider "random" {
+}
+
+provider "tfe" {
 }
