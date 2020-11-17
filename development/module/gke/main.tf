@@ -2,7 +2,7 @@ resource "google_container_cluster" "primary" {
   provider = google-beta
 
   name        = var.cluster_name
-  description = ""
+  description = var.description
   location    = var.location
   project     = var.project_id
 
@@ -36,6 +36,24 @@ resource "google_container_cluster" "primary" {
   workload_identity_config {
     identity_namespace = "${var.project_id}.svc.id.goog"
   }
+
+  addons_config {
+    http_load_balancing {
+      disabled = false
+    }
+
+    horizontal_pod_autoscaling {
+      disabled = false
+    }
+  }
+
+  pod_security_policy_config {
+    enabled = false
+  }
+
+  lifecycle {
+    ignore_changes = [node_config]
+  }
 }
 
 resource "google_container_node_pool" "primary_preemptible_nodes" {
@@ -51,16 +69,16 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
   }
 
   autoscaling {
-    min_node_count = 3
-    max_node_count = 6
+    min_node_count = var.min_node_count
+    max_node_count = var.max_node_count
   }
 
   node_config {
-    preemptible  = true
-    machine_type = "e2-medium"
+    preemptible  = var.is_preemptible_node
+    machine_type = var.machine_type
 
     metadata = {
-      disable-legacy-endpoints = "true"
+      disable-legacy-endpoints = true
     }
 
     service_account = var.default_service_account_email

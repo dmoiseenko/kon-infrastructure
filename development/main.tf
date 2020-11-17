@@ -6,8 +6,7 @@ module "development" {
   billing_account_id = var.billing_account_id
   folder_id          = "937516052901"
 
-  network_name = "vpc-kon"
-
+  vpc_network_name = "vpc-kon"
   vpc_subnets = [
     {
       subnet_name           = "tier-1"
@@ -16,7 +15,6 @@ module "development" {
       subnet_private_access = "true"
     },
   ]
-
   vpc_secondary_ranges = {
     tier-1 = [
       {
@@ -31,6 +29,10 @@ module "development" {
     ]
   }
 
-  gke_name = "gke-d-app"
-  gke_location = "us-east1-b"
+  gke_name                = "gke-d-app"
+  gke_location            = "us-east1-b"
+  gke_is_preemptible_node = true
+  gke_machine_type        = "e2-medium"
+  gke_min_node_count      = 3
+  gke_max_node_count      = 3
 }

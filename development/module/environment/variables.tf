@@ -14,7 +14,7 @@ variable "folder_id" {
   type = string
 }
 
-variable "network_name" {
+variable "vpc_network_name" {
   type = string
 }
 
@@ -26,14 +26,26 @@ variable "vpc_secondary_ranges" {
   type = map(list(object({ range_name = string, ip_cidr_range = string })))
 }
 
-variable "asd" {
-  type = string
-  default = ""
-}
 variable "gke_location" {
   type = string
 }
 
 variable "gke_name" {
   type = string
+}
+
+variable "gke_is_preemptible_node" {
+  type = bool
+}
+
+variable "gke_machine_type" {
+  type = string
+}
+
+variable "gke_min_node_count" {
+  type = number
+}
+
+variable "gke_max_node_count" {
+  type = number
 }

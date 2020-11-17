@@ -27,7 +27,7 @@ module "vpc" {
   version = "2.5.0"
 
   project_id       = module.host_project.project_id
-  network_name     = var.network_name
+  network_name     = var.vpc_network_name
   subnets          = var.vpc_subnets
   secondary_ranges = var.vpc_secondary_ranges
 
@@ -73,9 +73,12 @@ module "gke" {
   services_ip_range_name        = module.vpc.subnets_secondary_ranges[0][0].range_name
   default_service_account_email = module.app_project.service_account_email
   location                      = var.gke_location
+  is_preemptible_node           = var.gke_is_preemptible_node
+  machine_type                  = var.gke_machine_type
+  min_node_count                = var.gke_min_node_count
+  max_node_count                = var.gke_max_node_count
 
   depends_on = [
     module.shared_vpc_service,
   ]
 }
-

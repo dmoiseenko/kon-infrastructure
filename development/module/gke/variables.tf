@@ -30,3 +30,24 @@ variable "location" {
 variable "cluster_name" {
   type = string
 }
+
+variable "description" {
+  type    = string
+  default = ""
+}
+
+variable "is_preemptible_node" {
+  type = bool
+}
+
+variable "machine_type" {
+  type = string
+}
+
+variable "min_node_count" {
+  type = number
+}
+
+variable "max_node_count" {
+  type = number
+}
