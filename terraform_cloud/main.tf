@@ -1,5 +1,9 @@
+locals {
+  organization_name = "dmoiseenko"
+}
+
 resource "tfe_organization" "dmoiseenko" {
-  name  = "dmoiseenko"
+  name  = local.organization_name
   email = "dmoiseenko@mykolab.com"
 }
 
@@ -13,9 +17,8 @@ resource "tfe_workspace" "org" {
 resource "tfe_workspace" "terraform_cloud" {
   name                  = "terraform_cloud"
   organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = true
+  file_triggers_enabled = false
   queue_all_runs        = false
-  working_directory = "terraform_cloud/"
 
   lifecycle {
     ignore_changes = [vcs_repo]
@@ -71,4 +74,15 @@ resource "tfe_variable" "app_project_name_development" {
   value        = local.app_project_name_development
   category     = "terraform"
   workspace_id = tfe_workspace.denis_dev.id
+}
+
+data "terraform_remote_state" "organization" {
+  backend = "remote"
+
+  config = {
+    organization = local.organization_name
+    workspaces = {
+      name = tfe_workspace.org.name
+    }
+  }
 }
