@@ -1,5 +1,5 @@
 terraform {
-  required_version = "~> 0.13.4"
+  required_version = "0.13.5"
   required_providers {
     google = {
       version = "3.47.0"
@@ -23,4 +23,11 @@ provider "google-beta" {
 }
 
 provider "random" {
+}
+
+provider "gsuite" {
+  oauth_scopes = [
+    "https://www.googleapis.com/auth/admin.directory.group",
+    "https://www.googleapis.com/auth/admin.directory.user",
+  ]
 }
