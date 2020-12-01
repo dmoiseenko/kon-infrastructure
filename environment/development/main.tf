@@ -43,7 +43,7 @@ module "development" {
   gke_name                = local.gke_name
   gke_location            = local.gke_location
   gke_is_preemptible_node = true
-  gke_machine_type        = "e2-medium"
+  gke_machine_type        = "e2-standard-2"
   gke_min_node_count      = 3
-  gke_max_node_count      = 3
+  gke_max_node_count      = 4
 }
