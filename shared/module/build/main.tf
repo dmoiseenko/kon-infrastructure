@@ -75,8 +75,8 @@ resource "google_storage_bucket" "helm_repo" {
   project = google_project.main.project_id
 }
 
-resource "google_storage_bucket_access_control" "helm_repo_public_rule" {
+resource "google_storage_bucket_iam_member" "member" {
   bucket = google_storage_bucket.helm_repo.name
-  role   = "READER"
-  entity = "allUsers"
+  role = "roles/storage.objectViewer"
+  member = "allUsers"
 }
