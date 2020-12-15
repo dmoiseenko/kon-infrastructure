@@ -69,3 +69,14 @@ resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_ci_servi
   role       = "roles/artifactregistry.writer"
   member     = "serviceAccount:${google_service_account.ci_service_account.email}"
 }
+
+resource "google_storage_bucket" "helm_repo" {
+  name    = "${google_project.main.project_id}_helm"
+  project = google_project.main.project_id
+}
+
+resource "google_storage_bucket_access_control" "helm_repo_public_rule" {
+  bucket = google_storage_bucket.helm_repo.name
+  role   = "READER"
+  entity = "allUsers"
+}
