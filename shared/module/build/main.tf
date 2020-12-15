@@ -70,6 +70,16 @@ resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_ci_servi
   member     = "serviceAccount:${google_service_account.ci_service_account.email}"
 }
 
+resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_all_users" {
+  provider = google-beta
+
+  location   = google_artifact_registry_repository.repo_kon.location
+  repository = google_artifact_registry_repository.repo_kon.name
+  project    = google_project.main.project_id
+  role       = "roles/artifactregistry.reader"
+  member     = "allUsers"
+}
+
 resource "google_storage_bucket" "helm_repo" {
   name    = "${google_project.main.project_id}-helm"
   project = google_project.main.project_id
