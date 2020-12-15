@@ -71,7 +71,7 @@ resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_ci_servi
 }
 
 resource "google_storage_bucket" "helm_repo" {
-  name    = "${google_project.main.project_id}_helm"
+  name    = "${google_project.main.project_id}-helm"
   project = google_project.main.project_id
 }
 
