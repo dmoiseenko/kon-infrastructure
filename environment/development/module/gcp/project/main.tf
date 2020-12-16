@@ -38,6 +38,12 @@ resource "gsuite_group" "group_admin" {
   description = "Admin group for project ${google_project.main.project_id}"
 }
 
+resource "google_project_iam_member" "host_project_admin_group_role" {
+  member  = "group:${gsuite_group.group_admin.email}"
+  project = google_project.main.project_id
+  role    = "roles/editor"
+}
+
 resource "gsuite_group" "group_dev" {
   email       = "group-dev-${google_project.main.project_id}@${var.domain_name}"
   name        = "group-dev-${google_project.main.project_id}@${var.domain_name}"

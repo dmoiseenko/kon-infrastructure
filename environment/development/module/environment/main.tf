@@ -24,23 +24,9 @@ module "app_project" {
   ]
 }
 
-module "iam" {
-  source = "../iam"
-
-  host_project_id                = module.host_project.project_id
-  app_project_id                 = module.app_project.project_id
-  gke_app_service_account_email  = module.app_project.service_account_email
-  group_email_host_project_admin = module.host_project.group_admin_email
-  group_email_app_project_admin  = module.app_project.group_admin_email
-
-  depends_on = [
-    module.app_project
-  ]
-}
-
 module "vpc" {
   source  = "terraform-google-modules/network/google"
-  version = "2.5.0"
+  version = "2.6.0"
 
   project_id       = module.host_project.project_id
   network_name     = var.vpc_network_name
@@ -103,13 +89,12 @@ module "gke" {
   ]
 }
 
-module "rbac" {
-  source = "../rbac"
+module "dns" {
+  source = "../gcp/dns"
 
-  group_gke_security = module.gke.group_gke_security
-  group_gke_admin    = module.app_project.group_admin_email
-
-  depends_on = [
-    module.gke
-  ]
+  project_name       = var.dns_project_name
+  billing_account_id = var.billing_account_id
+  folder_id          = var.folder_id
+  domain_name        = var.domain_name
+  dns_name           = var.dns_name
 }

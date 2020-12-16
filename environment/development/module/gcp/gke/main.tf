@@ -4,6 +4,20 @@ resource "gsuite_group" "group_gke_security" {
   description = "GKE security group for project ${var.project_id}"
 }
 
+module "gke_app_service_account_email" {
+  source  = "terraform-google-modules/iam/google//modules/member_iam"
+  version = "6.3.1"
+
+  service_account_address = var.default_service_account_email
+  prefix                  = "serviceAccount"
+  project_id              = var.project_id
+  project_roles = [
+    "roles/monitoring.metricWriter",
+    "roles/monitoring.viewer",
+    "roles/logging.logWriter",
+  ]
+}
+
 resource "google_container_cluster" "primary" {
   provider = google-beta
 
@@ -96,4 +110,22 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
 
     service_account = var.default_service_account_email
   }
+}
+
+resource "gsuite_group" "gke_group_admin" {
+  email       = "group-gke-admin-${var.cluster_name}-${var.project_id}@${var.domain_name}"
+  name        = "group-gke-admin-${var.cluster_name}-${var.project_id}@${var.domain_name}"
+  description = "GKE admin group for cluster ${var.cluster_name} in project ${var.project_id}"
+}
+
+resource "google_project_iam_member" "gke_admin_group" {
+  member  = "group:${gsuite_group.gke_group_admin.email}"
+  project = var.project_id
+  role    = "roles/container.admin"
+}
+
+resource "gsuite_group_member" "group_gke_security" {
+  group = gsuite_group.group_gke_security.email
+  email = gsuite_group.gke_group_admin.email
+  role  = "MEMBER"
 }

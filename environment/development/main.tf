@@ -1,10 +1,3 @@
-locals {
-  host_project_name = "prj-kon-d"
-  app_project_name  = "prj-kon-app-d"
-  gke_name          = "gke-d-app"
-  gke_location      = "us-east1-b"
-}
-
 data "google_client_config" "provider" {}
 
 module "development" {
@@ -12,8 +5,9 @@ module "development" {
 
   domain_name = var.domain_name
 
-  host_project_name  = local.host_project_name
-  app_project_name   = local.app_project_name
+  host_project_name  = "prj-kon-d"
+  app_project_name   = "prj-kon-app-d"
+  dns_project_name   = "prj-kon-dns-d"
   billing_account_id = var.billing_account_id
   folder_id          = var.folder_id
 
@@ -40,10 +34,12 @@ module "development" {
     ]
   }
 
-  gke_name                = local.gke_name
-  gke_location            = local.gke_location
+  gke_name                = "gke-d-app"
+  gke_location            = "us-east1-b"
   gke_is_preemptible_node = true
   gke_machine_type        = "e2-standard-2"
   gke_min_node_count      = 3
   gke_max_node_count      = 4
+
+  dns_name = "dmoiseenko.me"
 }

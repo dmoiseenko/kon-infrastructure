@@ -10,6 +10,10 @@ variable "app_project_name" {
   type = string
 }
 
+variable "dns_project_name" {
+  type = string
+}
+
 variable "billing_account_id" {
   type = string
 }
@@ -54,3 +58,6 @@ variable "gke_max_node_count" {
   type = number
 }
 
+variable "dns_name" {
+  type = string
+}
