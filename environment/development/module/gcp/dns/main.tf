@@ -7,6 +7,7 @@ module "dns_project" {
   domain_name        = var.domain_name
   activate_apis = [
     "dns.googleapis.com",
+    "iamcredentials.googleapis.com",
   ]
 }
 

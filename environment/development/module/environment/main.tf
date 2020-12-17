@@ -21,6 +21,7 @@ module "app_project" {
   activate_apis = [
     "compute.googleapis.com",
     "container.googleapis.com",
+    "iamcredentials.googleapis.com",
   ]
 }
 
