@@ -54,3 +54,11 @@ variable "min_node_count" {
 variable "max_node_count" {
   type = number
 }
+
+variable "service_account_name_dns_admin" {
+  type = string
+}
+
+variable "project_id_dns" {
+  type = string
+}

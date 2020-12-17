@@ -24,6 +24,16 @@ module "app_project" {
   ]
 }
 
+module "dns" {
+  source = "../gcp/dns"
+
+  project_name       = var.dns_project_name
+  billing_account_id = var.billing_account_id
+  folder_id          = var.folder_id
+  domain_name        = var.domain_name
+  dns_name           = var.dns_name
+}
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "2.6.0"
@@ -70,31 +80,23 @@ module "shared_vpc_service" {
 module "gke" {
   source = "../gcp/gke"
 
-  project_id                    = module.app_project.project_id
-  domain_name                   = var.domain_name
-  cluster_name                  = var.gke_name
-  network_self_link             = module.vpc.network_self_link
-  subnetwork_self_link          = module.vpc.subnets_self_links[0]
-  pods_ip_range_name            = module.vpc.subnets_secondary_ranges[0][1].range_name
-  services_ip_range_name        = module.vpc.subnets_secondary_ranges[0][0].range_name
-  default_service_account_email = module.app_project.service_account_email
-  location                      = var.gke_location
-  is_preemptible_node           = var.gke_is_preemptible_node
-  machine_type                  = var.gke_machine_type
-  min_node_count                = var.gke_min_node_count
-  max_node_count                = var.gke_max_node_count
+  project_id                     = module.app_project.project_id
+  domain_name                    = var.domain_name
+  cluster_name                   = var.gke_name
+  network_self_link              = module.vpc.network_self_link
+  subnetwork_self_link           = module.vpc.subnets_self_links[0]
+  pods_ip_range_name             = module.vpc.subnets_secondary_ranges[0][1].range_name
+  services_ip_range_name         = module.vpc.subnets_secondary_ranges[0][0].range_name
+  default_service_account_email  = module.app_project.service_account_email
+  location                       = var.gke_location
+  is_preemptible_node            = var.gke_is_preemptible_node
+  machine_type                   = var.gke_machine_type
+  min_node_count                 = var.gke_min_node_count
+  max_node_count                 = var.gke_max_node_count
+  project_id_dns                 = module.dns.project_id
+  service_account_name_dns_admin = module.dns.service_account_name_dns_admin
 
   depends_on = [
     module.shared_vpc_service,
   ]
-}
-
-module "dns" {
-  source = "../gcp/dns"
-
-  project_name       = var.dns_project_name
-  billing_account_id = var.billing_account_id
-  folder_id          = var.folder_id
-  domain_name        = var.domain_name
-  dns_name           = var.dns_name
 }

@@ -129,3 +129,9 @@ resource "gsuite_group_member" "group_gke_security" {
   email = gsuite_group.gke_group_admin.email
   role  = "MEMBER"
 }
+
+resource "google_service_account_iam_member" "external_dns" {
+  service_account_id = var.service_account_name_dns_admin
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[external-dns/external-dns]"
+}
