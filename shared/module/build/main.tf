@@ -83,6 +83,10 @@ resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_all_user
 resource "google_storage_bucket" "helm_repo" {
   name    = "${google_project.main.project_id}-helm"
   project = google_project.main.project_id
+
+  versioning {
+    enabled = true
+  }
 }
 
 resource "google_storage_bucket_iam_member" "member" {
