@@ -115,7 +115,7 @@ resource "google_compute_firewall" "default" {
 
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
 
-  target_tags = ["gke-gke-d-app-e798e969-node"]
+  target_service_accounts = [module.app_project.service_account_email]
 }
 
 resource "gsuite_group" "group_iap_support" {
@@ -144,5 +144,11 @@ resource "google_iap_brand" "kon" {
 
 resource "google_iap_client" "project_client" {
   display_name = "kon client"
-  brand        =  google_iap_brand.kon.name
+  brand        = google_iap_brand.kon.name
+}
+
+resource "google_iap_web_iam_member" "member" {
+  project = module.app_project.project_id
+  role    = "roles/iap.httpsResourceAccessor"
+  member  = "domain:${var.domain_name}"
 }
