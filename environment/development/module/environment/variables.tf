@@ -61,3 +61,7 @@ variable "gke_max_node_count" {
 variable "dns_name" {
   type = string
 }
+
+variable "terraform_service_account_email" {
+  type = string
+}

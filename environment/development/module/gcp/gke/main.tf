@@ -134,4 +134,8 @@ resource "google_service_account_iam_member" "external_dns" {
   service_account_id = var.service_account_name_dns_admin
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[external-dns/external-dns]"
+
+  depends_on = [
+    google_container_cluster.primary
+  ]
 }

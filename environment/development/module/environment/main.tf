@@ -22,6 +22,7 @@ module "app_project" {
     "compute.googleapis.com",
     "container.googleapis.com",
     "iamcredentials.googleapis.com",
+    "iap.googleapis.com",
   ]
 }
 
@@ -100,4 +101,48 @@ module "gke" {
   depends_on = [
     module.shared_vpc_service,
   ]
+}
+
+resource "google_compute_firewall" "default" {
+  name    = "gke-load-balancer"
+  network = module.vpc.network_name
+  project = module.host_project.project_id
+
+  allow {
+    protocol = "tcp"
+    ports    = ["3000", "30000-32767"]
+  }
+
+  source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
+
+  target_tags = ["gke-gke-d-app-e798e969-node"]
+}
+
+resource "gsuite_group" "group_iap_support" {
+  email       = "support-${module.app_project.project_id}@${var.domain_name}"
+  name        = "support-${module.app_project.project_id}@${var.domain_name}"
+  description = "Support group for IAP in ${module.app_project.project_id}"
+}
+
+# https://github.com/hashicorp/terraform-provider-google/issues/6104
+resource "gsuite_group_member" "support_owner" {
+  group = gsuite_group.group_iap_support.email
+  email = var.terraform_service_account_email
+  role  = "OWNER"
+}
+
+resource "google_iap_brand" "kon" {
+  support_email     = gsuite_group.group_iap_support.email
+  application_title = "kon"
+  project           = module.app_project.project_id
+
+  depends_on = [
+    module.app_project,
+    gsuite_group_member.support_owner
+  ]
+}
+
+resource "google_iap_client" "project_client" {
+  display_name = "kon client"
+  brand        =  google_iap_brand.kon.name
 }

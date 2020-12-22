@@ -21,6 +21,8 @@ resource "google_dns_managed_zone" "main_zone" {
   name     = replace(var.dns_name, ".", "-")
   dns_name = "${var.dns_name}."
   project  = module.dns_project.project_id
+
+  depends_on = [module.dns_project]
 }
 
 resource "google_dns_managed_zone" "dev_main_zone" {
@@ -28,6 +30,8 @@ resource "google_dns_managed_zone" "dev_main_zone" {
   dns_name    = "dev.${var.dns_name}."
   project     = module.dns_project.project_id
   description = "Automatically managed zone by ExternalDNS"
+
+  depends_on = [module.dns_project]
 }
 
 resource "google_dns_record_set" "dev_main_zone_ns" {

@@ -42,4 +42,5 @@ module "development" {
   gke_max_node_count      = 4
 
   dns_name = "dmoiseenko.me"
+  terraform_service_account_email = "sa-tf-org@tf-org-08ad.iam.gserviceaccount.com"
 }
