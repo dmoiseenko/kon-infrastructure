@@ -139,3 +139,13 @@ resource "google_service_account_iam_member" "external_dns" {
     google_container_cluster.primary
   ]
 }
+
+resource "google_service_account_iam_member" "cert_manager" {
+  service_account_id = var.service_account_name_dns_admin
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[cert-manager/cert-manager]"
+
+  depends_on = [
+    google_container_cluster.primary
+  ]
+}
