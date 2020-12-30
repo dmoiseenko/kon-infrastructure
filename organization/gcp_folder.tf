@@ -10,10 +10,10 @@ resource "google_folder" "kon" {
 
 resource "google_folder" "development" {
   display_name = "development"
-  parent = google_folder.kon.id
+  parent       = google_folder.kon.id
 }
 
 resource "google_folder" "shared" {
   display_name = "shared"
-  parent = google_folder.kon.id
+  parent       = google_folder.kon.id
 }

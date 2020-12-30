@@ -46,9 +46,16 @@ resource "tfe_variable" "project_build_name" {
   workspace_id = tfe_workspace.shared.id
 }
 
-resource "tfe_variable" "group_admin_project_build_shared" {
-  key          = "group_admin_project_build_shared_email"
-  value        = gsuite_group.group_admin_project_build_shared.email
+resource "tfe_variable" "project_dns_name" {
+  key          = "project_dns_name"
+  value        = local.project_dns_name
+  category     = "terraform"
+  workspace_id = tfe_workspace.shared.id
+}
+
+resource "tfe_variable" "main_dns_name" {
+  key          = "main_dns_name"
+  value        = local.main_dns_name
   category     = "terraform"
   workspace_id = tfe_workspace.shared.id
 }
