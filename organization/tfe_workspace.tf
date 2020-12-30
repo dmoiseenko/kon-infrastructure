@@ -1,14 +1,11 @@
-locals {
-  organization_name = "dmoiseenko"
-}
-
 resource "tfe_organization" "dmoiseenko" {
-  name  = local.organization_name
-  email = "dmoiseenko@mykolab.com"
+  name  = var.organization_name
+  email = var.organization_admin_email
 }
 
 resource "tfe_workspace" "organization" {
   name                  = "organization"
+  terraform_version     = "0.14.3"
   organization          = tfe_organization.dmoiseenko.id
   file_triggers_enabled = false
   queue_all_runs        = false
@@ -21,6 +18,7 @@ resource "tfe_workspace" "organization" {
 resource "tfe_workspace" "bootstrap" {
   name                  = "bootstrap"
   organization          = tfe_organization.dmoiseenko.id
+  terraform_version     = "0.14.3"
   file_triggers_enabled = false
   queue_all_runs        = false
   operations            = false
@@ -28,6 +26,7 @@ resource "tfe_workspace" "bootstrap" {
 
 resource "tfe_workspace" "denis_dev" {
   name                  = "denis_dev"
+  terraform_version     = "0.14.3"
   organization          = tfe_organization.dmoiseenko.id
   file_triggers_enabled = false
   queue_all_runs        = false
@@ -39,6 +38,7 @@ resource "tfe_workspace" "denis_dev" {
 
 resource "tfe_workspace" "shared" {
   name                  = "shared"
+  terraform_version     = "0.14.3"
   organization          = tfe_organization.dmoiseenko.id
   file_triggers_enabled = false
   queue_all_runs        = false

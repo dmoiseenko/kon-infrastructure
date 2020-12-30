@@ -53,9 +53,9 @@ resource "tfe_variable" "project_dns_name" {
   workspace_id = tfe_workspace.shared.id
 }
 
-resource "tfe_variable" "main_dns_name" {
-  key          = "main_dns_name"
-  value        = local.main_dns_name
+resource "tfe_variable" "root_dns_name" {
+  key          = "root_dns_name"
+  value        = local.root_dns_name
   category     = "terraform"
   workspace_id = tfe_workspace.shared.id
 }

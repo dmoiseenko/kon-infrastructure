@@ -13,22 +13,11 @@ terraform {
       version = "2.3.0"
       source  = "hashicorp/random"
     }
-    gsuite = {
-      version = "0.1.56"
-      source  = "DeviaVir/gsuite"
-    }
     tfe = {
       source = "hashicorp/tfe"
       version = "0.22.0"
     }
   }
-}
-
-provider "gsuite" {
-  oauth_scopes = [
-    "https://www.googleapis.com/auth/admin.directory.group",
-    "https://www.googleapis.com/auth/admin.directory.user",
-  ]
 }
 
 provider "google" {
