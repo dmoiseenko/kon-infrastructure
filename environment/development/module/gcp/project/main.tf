@@ -52,7 +52,7 @@ resource "google_project_iam_member" "admin_group_editor_role" {
   role    = "roles/editor"
 }
 
-resource "gsuite_group" "dev" {
+resource "gsuite_group" "development" {
   email       = "grp-dev-${google_project.main.project_id}@${var.organization_domain_name}"
   name        = "grp-dev-${google_project.main.project_id}@${var.organization_domain_name}"
   description = "Development group for project ${google_project.main.project_id}"
