@@ -4,7 +4,7 @@
 
 * lowercase
 * snake_case (A)
-* no abbreviation or shortening (B)
+* avoid abbreviation or shortening (B)
 
 --
 

@@ -2,14 +2,22 @@ variable "billing_account_id" {
   type = string
 }
 
-variable "project_build_name" {
+variable "build_project_name" {
   type = string
 }
 
-variable "folder_shared_id" {
+variable "dns_project_name" {
   type = string
 }
 
-variable "group_admin_project_build_shared_email" {
+variable "root_dns_name" {
+  type = string
+}
+
+variable "folder_id" {
+  type = string
+}
+
+variable "domain_name" {
   type = string
 }

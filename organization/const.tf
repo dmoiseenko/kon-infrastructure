@@ -1,7 +1,7 @@
 locals {
-  project_host_dev_name = "prj-kon-d"
-  project_app_dev_name  = "prj-kon-app-d"
-  project_build_name    = "prj-kon-build-shared"
-  project_dns_name      = "prj-kon-dns-shared"
-  root_dns_name         = "dmoiseenko.me"
+  dev_host_project_name     = "prj-d-kon"
+  dev_app_project_name      = "prj-d-kon-app"
+  shared_build_project_name = "prj-sh-kon-build"
+  sahred_dns_project_name   = "prj-sh-kon-dns"
+  root_dns_name             = "dmoiseenko.me"
 }

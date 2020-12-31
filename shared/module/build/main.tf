@@ -1,7 +1,7 @@
 resource "google_project" "main" {
-  name            = var.project_build_name
-  project_id      = "${var.project_build_name}-${random_id.random_project_id_suffix.hex}"
-  folder_id       = var.folder_shared_id
+  name            = var.project_name
+  project_id      = "${var.project_name}-${random_id.random_project_id_suffix.hex}"
+  folder_id       = var.folder_id
   billing_account = var.billing_account_id
 }
 
@@ -21,9 +21,18 @@ module "project_services" {
   ]
 }
 
+resource "google_project_default_service_accounts" "main" {
+  project = google_project.main.project_id
+  action  = "DELETE"
+
+  depends_on = [
+    module.project_services,
+  ]
+}
+
 resource "google_service_account" "ci_service_account" {
   account_id   = "ci-service-account"
-  display_name = "${var.project_build_name} CI Service Account"
+  display_name = "${var.project_name} CI Service Account"
   project      = google_project.main.project_id
 }
 
@@ -45,8 +54,14 @@ resource "google_storage_bucket" "bucket_project_id" {
   project = google_project.main.project_id
 }
 
+resource "gsuite_group" "group_admin" {
+  email       = "group-admin-${google_project.main.project_id}@${var.domain_name}"
+  name        = "group-admin-${google_project.main.project_id}@${var.domain_name}"
+  description = "Admin group for project ${google_project.main.project_id}"
+}
+
 resource "google_project_iam_member" "group_admin_project_build_shared_email" {
-  member  = "group:${var.group_admin_project_build_shared_email}"
+  member  = "group:${gsuite_group.group_admin.email}"
   project = google_project.main.project_id
   role    = "roles/editor"
 }
@@ -58,6 +73,8 @@ resource "google_artifact_registry_repository" "repo_kon" {
   location      = "us-east1"
   repository_id = "repo-kon"
   format        = "DOCKER"
+
+  depends_on = [module.project_services]
 }
 
 resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_ci_service_account" {
@@ -91,6 +108,6 @@ resource "google_storage_bucket" "helm_repo" {
 
 resource "google_storage_bucket_iam_member" "member" {
   bucket = google_storage_bucket.helm_repo.name
-  role = "roles/storage.objectViewer"
+  role   = "roles/storage.objectViewer"
   member = "allUsers"
 }

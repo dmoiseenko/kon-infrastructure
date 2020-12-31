@@ -1,6 +1,27 @@
 # This file is maintained automatically by "terraform init".
 # Manual edits may be lost in future updates.
 
+provider "registry.terraform.io/deviavir/gsuite" {
+  version     = "0.1.56"
+  constraints = "0.1.56"
+  hashes = [
+    "h1:KwnyzqHcZJj6h8G/O7bKTSCnaRlXFQehEwxCaBj9OLY=",
+    "zh:0f4a7a734f483bd766290b7557d8f005ed5b863e2d6fc1d73a77b803d40b773d",
+    "zh:12e293813449566d4c790c89621f4f991d60aeb039a1c0a9434884363ba74cb1",
+    "zh:399ba09e6964c996d0d11858b5f4dca9526746de7001d4a720ec1bdebb532514",
+    "zh:3f2c80f801c5b298b65cf5498f3dbceb7140d0b55de2939c66b1b8a1316c6a52",
+    "zh:42a2a8d7ea4da23f00ed85bc3b1339f474741a837ea635d3792693038dba44b5",
+    "zh:509297bf9f6e5a5883094e91597f3a8f904c0f1567422a94707a68b0013c9771",
+    "zh:74433e00d89e06ba47d4f06abddaa2143458b2f9ceb6ce3a4151f76f6ebc2fa0",
+    "zh:971afa2f56f6dcea4274158f2be8bb719c4333dfa3102d026349d38f7399d65f",
+    "zh:a42dd933609ff19f9035d7c01c48e2d353808208d619dd6ee52185f26b8f93a9",
+    "zh:b1bab07e6adf8be93a083f615e3b9554a245d4496ed80c0a92d3486f5ea6e914",
+    "zh:d358b1318199b1610fcabe2bcfadf665878384401e6d77ee3f575f030e30f962",
+    "zh:dd0d9feb11279f7ad75a94e7275af2f0e0df60252623509cde2e94b90588d75d",
+    "zh:fc1ca7cd2b40ca36854bf42bbe17f19891895c2335bb1480d41ae4fb75c74aa0",
+  ]
+}
+
 provider "registry.terraform.io/hashicorp/google" {
   version     = "3.47.0"
   constraints = "3.47.0"

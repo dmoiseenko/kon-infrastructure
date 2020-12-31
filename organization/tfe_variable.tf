@@ -3,6 +3,10 @@ locals {
     tfe_workspace.denis_dev.id,
     tfe_workspace.shared.id
   ]
+  workspaces_with_domain_name = [
+    tfe_workspace.denis_dev.id,
+    tfe_workspace.shared.id
+  ]
 }
 
 resource "tfe_variable" "billing_account_id" {
@@ -14,14 +18,16 @@ resource "tfe_variable" "billing_account_id" {
   workspace_id = local.workspaces_with_billing_account_id[count.index]
 }
 
-# denis_dev
-
 resource "tfe_variable" "domain_name" {
+   count = length(local.workspaces_with_domain_name)
+
   key          = "domain_name"
   value        = var.domain
   category     = "terraform"
-  workspace_id = tfe_workspace.denis_dev.id
+  workspace_id = local.workspaces_with_domain_name[count.index]
 }
+
+# denis_dev
 
 resource "tfe_variable" "development_folder_id" {
   key          = "folder_id"
@@ -32,23 +38,23 @@ resource "tfe_variable" "development_folder_id" {
 
 # shared
 
-resource "tfe_variable" "folder_shared_id" {
-  key          = "folder_shared_id"
+resource "tfe_variable" "shared_folder_id" {
+  key          = "folder_id"
   value        = google_folder.shared.id
   category     = "terraform"
   workspace_id = tfe_workspace.shared.id
 }
 
-resource "tfe_variable" "project_build_name" {
-  key          = "project_build_name"
-  value        = local.project_build_name
+resource "tfe_variable" "build_project_name" {
+  key          = "build_project_name"
+  value        = local.build_project_name
   category     = "terraform"
   workspace_id = tfe_workspace.shared.id
 }
 
-resource "tfe_variable" "project_dns_name" {
-  key          = "project_dns_name"
-  value        = local.project_dns_name
+resource "tfe_variable" "dns_project_name" {
+  key          = "dns_project_name"
+  value        = local.dns_project_name
   category     = "terraform"
   workspace_id = tfe_workspace.shared.id
 }

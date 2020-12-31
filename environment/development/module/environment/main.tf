@@ -110,7 +110,7 @@ resource "google_compute_firewall" "default" {
 
   allow {
     protocol = "tcp"
-    ports    = ["3000", "8080", "30000-32767"]
+    ports    = ["30000-32767"]
   }
 
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
@@ -151,4 +151,6 @@ resource "google_iap_web_iam_member" "member" {
   project = module.app_project.project_id
   role    = "roles/iap.httpsResourceAccessor"
   member  = "domain:${var.domain_name}"
+
+  depends_on = ["google_iap_brand.kon"]
 }
