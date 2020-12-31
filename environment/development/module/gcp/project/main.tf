@@ -1,8 +1,9 @@
 resource "google_project" "main" {
-  name            = var.project_name
-  project_id      = "${var.project_name}-${random_id.random_project_id_suffix.hex}"
-  folder_id       = var.folder_id
-  billing_account = var.billing_account_id
+  name                = var.project_name
+  project_id          = "${var.project_name}-${random_id.random_project_id_suffix.hex}"
+  folder_id           = var.folder_id
+  billing_account     = var.billing_account_id
+  auto_create_network = false
 }
 
 module "project_services" {
