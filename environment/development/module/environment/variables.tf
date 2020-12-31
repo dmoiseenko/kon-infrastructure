@@ -1,4 +1,4 @@
-variable "domain_name" {
+variable "organization_domain_name" {
   type = string
 }
 

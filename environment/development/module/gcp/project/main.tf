@@ -27,7 +27,7 @@ resource "google_project_default_service_accounts" "main" {
 }
 
 resource "google_service_account" "main" {
-  account_id   = "sa"
+  account_id   = "sa-main"
   display_name = "${var.project_name} Project Service Account"
   project      = google_project.main.project_id
 }
@@ -61,7 +61,7 @@ resource "gsuite_group" "development" {
 resource "google_project_iam_member" "dev_group_role" {
   count = length(var.development_group_roles)
 
-  member  = "group:${gsuite_group.dev.email}"
+  member  = "group:${gsuite_group.development.email}"
   project = google_project.main.project_id
   role    = var.development_group_roles[count.index]
 }
