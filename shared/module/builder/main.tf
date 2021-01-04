@@ -1,5 +1,5 @@
 module "project" {
-  source = "git@github.com:dmoiseenko/kon-infrastructure.git//environment/development/module/gcp/project?ref=v0.0.8"
+  source = "git@github.com:dmoiseenko/kon-infrastructure.git//environment/development/module/gcp/project?ref=v0.0.9"
 
   project_name             = var.project_name
   billing_account_id       = var.billing_account_id
