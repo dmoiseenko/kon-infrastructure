@@ -39,7 +39,7 @@ provider "registry.terraform.io/gavinbunney/kubectl" {
 
 provider "registry.terraform.io/hashicorp/google" {
   version     = "3.47.0"
-  constraints = "3.47.0"
+  constraints = ">= 2.12.0, ~> 3.45, 3.47.0, < 4.0.0"
   hashes = [
     "h1:aMq4jtaJDlzgrJd1dp1aKxZV7oSLPQ8P6Y/3qkQvmio=",
     "zh:162c78195143329f219a82f07a01722bcf1685140188770ffbef6397e6a44dbe",

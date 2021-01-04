@@ -58,7 +58,11 @@ variable "gke_max_node_count" {
   type = number
 }
 
-variable "dns_name" {
+variable "domain_name" {
+  type = string
+}
+
+variable "subdomain" {
   type = string
 }
 

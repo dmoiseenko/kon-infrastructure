@@ -2,7 +2,7 @@ variable "project_name" {
   type = string
 }
 
-variable "domain_name" {
+variable "organization_domain_name" {
   type = string
 }
 
@@ -14,6 +14,10 @@ variable "folder_id" {
   type = string
 }
 
-variable "dns_name" {
+variable "domain_name" {
+  type = string
+}
+
+variable "subdomain" {
   type = string
 }

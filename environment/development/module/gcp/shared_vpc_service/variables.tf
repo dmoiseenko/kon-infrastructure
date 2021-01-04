@@ -1,31 +1,23 @@
-variable "project_id" {
-  type        = string
-  description = "Project Id"
+variable "service_project_id" {
+  type = string
 }
 
-variable "project_number" {
+variable "service_project_number" {
   type = string
 }
 
 variable "vpc_host_project_id" {
-  type        = string
-  description = "The Shared VPC host project Id"
+  type = string
 }
 
 variable "shared_vpc_subnet_regions" {
-  type    = list(string)
-  default = []
+  type = list(string)
 }
 
 variable "shared_vpc_subnet_names" {
-  type    = list(string)
-  default = []
+  type = list(string)
 }
 
-# variable "admin_group_email" {
-#   type    = string
-# }
-
 variable "service_account_email" {
-  type    = string
+  type = string
 }

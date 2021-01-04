@@ -6,16 +6,11 @@ resource "google_project" "main" {
   auto_create_network = false
 }
 
-module "project_services" {
-  source  = "terraform-google-modules/project-factory/google//modules/project_services"
-  version = "4.0.0"
+resource "google_project_service" "project_services" {
+  count = length(var.activate_apis)
 
-  project_id    = google_project.main.project_id
-  activate_apis = var.activate_apis
-
-  depends_on = [
-    google_project.main,
-  ]
+  project                    = google_project.main.project_id
+  service                    = var.activate_apis[count.index]
 }
 
 resource "google_project_default_service_accounts" "main" {
@@ -23,7 +18,7 @@ resource "google_project_default_service_accounts" "main" {
   action  = "DELETE"
 
   depends_on = [
-    module.project_services,
+    google_project_service.project_services,
   ]
 }
 
@@ -33,7 +28,7 @@ resource "google_service_account" "main" {
   project      = google_project.main.project_id
 }
 
-resource "google_project_iam_member" "main_service_account_role" {
+resource "google_project_iam_member" "main_service_account_roles" {
   count = length(var.service_account_roles)
 
   member  = "serviceAccount:${google_service_account.main.email}"
@@ -59,7 +54,7 @@ resource "gsuite_group" "development" {
   description = "Development group for project ${google_project.main.project_id}"
 }
 
-resource "google_project_iam_member" "dev_group_role" {
+resource "google_project_iam_member" "dev_group_roles" {
   count = length(var.development_group_roles)
 
   member  = "group:${gsuite_group.development.email}"
