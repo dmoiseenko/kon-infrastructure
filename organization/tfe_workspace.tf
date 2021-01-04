@@ -35,15 +35,3 @@ resource "tfe_workspace" "denis_dev" {
     ignore_changes = [vcs_repo]
   }
 }
-
-resource "tfe_workspace" "shared" {
-  name                  = "shared"
-  terraform_version     = "0.14.3"
-  organization          = tfe_organization.dmoiseenko.id
-  file_triggers_enabled = false
-  queue_all_runs        = false
-
-  lifecycle {
-    ignore_changes = [vcs_repo]
-  }
-}

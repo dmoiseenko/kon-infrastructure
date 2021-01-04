@@ -6,7 +6,7 @@ variable "billing_account" {
   type = string
 }
 
-variable "domain" {
+variable "organization_domain_name" {
   type = string
 }
 
@@ -17,4 +17,3 @@ variable "organization_admin_email" {
 variable "organization_name" {
   type = string
 }
-
