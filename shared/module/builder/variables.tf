@@ -10,6 +10,6 @@ variable "billing_account_id" {
   type = string
 }
 
-variable "domain_name" {
+variable "organization_domain_name" {
   type = string
 }

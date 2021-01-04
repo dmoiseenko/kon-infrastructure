@@ -8,17 +8,21 @@ module "project" {
   service_account_roles    = []
   development_group_roles  = []
   activate_apis = [
-    "dns.googleapis.com",
+    "storage-api.googleapis.com"
   ]
 }
 
-resource "google_dns_managed_zone" "root" {
-  name     = replace(var.root_dns_name, ".", "-")
-  dns_name = "${var.root_dns_name}."
-  project  = module.project.project_id
-  dnssec_config {
-    state = "on"
+resource "google_storage_bucket" "helm_repo" {
+  name    = "${module.project.project_id}-helm"
+  project = module.project.project_id
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = true
   }
+}
 
-  depends_on = [module.project]
+resource "google_storage_bucket_iam_member" "member" {
+  bucket = google_storage_bucket.helm_repo.name
+  role   = "roles/storage.objectViewer"
+  member = "allUsers"
 }

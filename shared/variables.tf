@@ -6,6 +6,14 @@ variable "build_project_name" {
   type = string
 }
 
+variable "registry_project_name" {
+  type = string
+}
+
+variable "helm_repo_project_name" {
+  type = string
+}
+
 variable "dns_project_name" {
   type = string
 }
@@ -18,6 +26,6 @@ variable "folder_id" {
   type = string
 }
 
-variable "domain_name" {
+variable "organization_domain_name" {
   type = string
 }
