@@ -57,6 +57,7 @@ resource "google_artifact_registry_repository_iam_member" "reader_group" {
   member     = "group:${gsuite_group.reader.email}"
 }
 
+# TODO: Disallow unauthorized access
 resource "google_artifact_registry_repository_iam_member" "iam_repo_kon_all_users" {
   provider = google-beta
 
