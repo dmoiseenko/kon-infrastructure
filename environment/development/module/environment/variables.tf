@@ -69,3 +69,7 @@ variable "subdomain" {
 variable "terraform_service_account_email" {
   type = string
 }
+
+variable "gke_release_channel" {
+  type = string
+}

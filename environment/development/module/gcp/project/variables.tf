@@ -22,6 +22,10 @@ variable "development_group_roles" {
   type = list(string)
 }
 
+variable "admin_group_roles" {
+  type = list(string)
+}
+
 variable "organization_domain_name" {
   type = string
 }

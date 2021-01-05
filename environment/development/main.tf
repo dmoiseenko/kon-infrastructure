@@ -40,6 +40,7 @@ module "development" {
   gke_machine_type        = "e2-standard-2"
   gke_min_node_count      = 3
   gke_max_node_count      = 3
+  gke_release_channel     = "REGULAR"
 
   domain_name = "dmoiseenko.me"
   subdomain   = "dev"

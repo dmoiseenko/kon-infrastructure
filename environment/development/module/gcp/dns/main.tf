@@ -6,6 +6,7 @@ module "dns_project" {
   folder_id                = var.folder_id
   organization_domain_name = var.organization_domain_name
   development_group_roles  = []
+  admin_group_roles        = []
   service_account_roles = [
     "roles/dns.admin",
   ]
@@ -14,10 +15,13 @@ module "dns_project" {
   ]
 }
 
-resource "google_dns_managed_zone" "subdomain_main_zone" {
-  name        = "${var.subdomain}-${replace(var.domain_name, ".", "-")}"
-  dns_name    = "${var.subdomain}.${var.domain_name}."
-  project     = module.dns_project.project_id
+resource "google_dns_managed_zone" "subdomain_zone" {
+  name     = "${var.subdomain}-${replace(var.domain_name, ".", "-")}"
+  dns_name = "${var.subdomain}.${var.domain_name}."
+  project  = module.dns_project.project_id
+  dnssec_config {
+    state = "on"
+  }
   description = "Automatically managed zone by ExternalDNS"
 
   depends_on = [module.dns_project]

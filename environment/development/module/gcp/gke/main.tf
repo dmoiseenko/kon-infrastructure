@@ -8,7 +8,7 @@ module "gke_app_service_account_email" {
   source  = "terraform-google-modules/iam/google//modules/member_iam"
   version = "6.3.1"
 
-  service_account_address = var.default_service_account_email
+  service_account_address = var.service_account_email
   prefix                  = "serviceAccount"
   project_id              = var.project_id
   project_roles = [
@@ -27,7 +27,7 @@ resource "google_container_cluster" "primary" {
   project     = var.project_id
 
   release_channel {
-    channel = "REGULAR"
+    channel = var.release_channel
   }
 
   network         = var.network_self_link
@@ -50,7 +50,7 @@ resource "google_container_cluster" "primary" {
   initial_node_count       = 1
   remove_default_node_pool = true
   node_config {
-    service_account = var.default_service_account_email
+    service_account = var.service_account_email
   }
 
   workload_identity_config {
@@ -86,7 +86,7 @@ resource "google_container_cluster" "primary" {
 resource "google_container_node_pool" "primary_preemptible_nodes" {
   name       = "main-node-pool"
   cluster    = google_container_cluster.primary.name
-  node_count = 3
+  node_count = var.min_node_count
   project    = var.project_id
   location   = var.location
 
@@ -108,7 +108,7 @@ resource "google_container_node_pool" "primary_preemptible_nodes" {
       disable-legacy-endpoints = true
     }
 
-    service_account = var.default_service_account_email
+    service_account = var.service_account_email
   }
 }
 
@@ -131,7 +131,7 @@ resource "gsuite_group_member" "group_gke_security" {
 }
 
 resource "google_service_account_iam_member" "external_dns" {
-  service_account_id = var.service_account_name_dns_admin
+  service_account_id = var.dns_admin_service_account_name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[external-dns/external-dns]"
 
@@ -141,7 +141,7 @@ resource "google_service_account_iam_member" "external_dns" {
 }
 
 resource "google_service_account_iam_member" "cert_manager" {
-  service_account_id = var.service_account_name_dns_admin
+  service_account_id = var.dns_admin_service_account_name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[cert-manager/cert-manager]"
 

@@ -9,8 +9,8 @@ resource "google_project" "main" {
 resource "google_project_service" "project_services" {
   count = length(var.activate_apis)
 
-  project                    = google_project.main.project_id
-  service                    = var.activate_apis[count.index]
+  project = google_project.main.project_id
+  service = var.activate_apis[count.index]
 }
 
 resource "google_project_default_service_accounts" "main" {
@@ -48,13 +48,21 @@ resource "google_project_iam_member" "admin_group_editor_role" {
   role    = "roles/editor"
 }
 
+resource "google_project_iam_member" "admin_group_roles" {
+  count = length(var.admin_group_roles)
+
+  member  = "group:${gsuite_group.admin.email}"
+  project = google_project.main.project_id
+  role    = var.admin_group_roles[count.index]
+}
+
 resource "gsuite_group" "development" {
   email       = "grp-dev-${google_project.main.project_id}@${var.organization_domain_name}"
   name        = "grp-dev-${google_project.main.project_id}@${var.organization_domain_name}"
   description = "Development group for project ${google_project.main.project_id}"
 }
 
-resource "google_project_iam_member" "dev_group_roles" {
+resource "google_project_iam_member" "development_group_roles" {
   count = length(var.development_group_roles)
 
   member  = "group:${gsuite_group.development.email}"

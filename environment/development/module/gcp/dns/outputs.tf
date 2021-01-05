@@ -1,8 +1,8 @@
-output "service_account_email_dns_admin" {
+output "dns_admin_service_account_email" {
   value = module.dns_project.service_account_email
 }
 
-output "service_account_name_dns_admin" {
+output "dns_admin_service_account_name" {
   value = module.dns_project.service_account_name
 }
 

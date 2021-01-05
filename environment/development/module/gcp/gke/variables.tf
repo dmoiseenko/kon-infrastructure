@@ -22,7 +22,7 @@ variable "subnetwork_self_link" {
   type = string
 }
 
-variable "default_service_account_email" {
+variable "service_account_email" {
   type = string
 }
 
@@ -55,10 +55,14 @@ variable "max_node_count" {
   type = number
 }
 
-variable "service_account_name_dns_admin" {
+variable "dns_admin_service_account_name" {
   type = string
 }
 
-variable "project_id_dns" {
+variable "dns_project_id" {
+  type = string
+}
+
+variable "release_channel" {
   type = string
 }
