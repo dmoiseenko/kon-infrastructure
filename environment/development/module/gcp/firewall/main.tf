@@ -5,7 +5,7 @@ resource "google_compute_firewall" "gke-load-balancer" {
 
   allow {
     protocol = "tcp"
-    ports    = ["30000-32767"]
+    ports    = ["30000-32767", "8080"]
   }
 
   source_ranges = ["130.211.0.0/22", "35.191.0.0/16"]
