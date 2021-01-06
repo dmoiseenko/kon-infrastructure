@@ -150,8 +150,9 @@ resource "google_service_account_iam_member" "cert_manager" {
   ]
 }
 
+# TODO Use separate account for Vault KMS access
 resource "google_service_account_iam_member" "vault" {
-  service_account_id = var.service_account_email
+  service_account_id = var.service_account_name
   role               = "roles/iam.workloadIdentityUser"
   member             = "serviceAccount:${var.project_id}.svc.id.goog[vault/vault]"
 

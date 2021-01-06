@@ -102,6 +102,7 @@ module "gke" {
   pods_ip_range_name             = module.vpc.subnets_secondary_ranges[0][1].range_name
   services_ip_range_name         = module.vpc.subnets_secondary_ranges[0][0].range_name
   service_account_email          = module.app_project.service_account_email
+  service_account_name           = module.app_project.service_account_name
   location                       = var.gke_location
   is_preemptible_node            = var.gke_is_preemptible_node
   machine_type                   = var.gke_machine_type
