@@ -22,10 +22,10 @@ module "app_project" {
   folder_id                = var.folder_id
   organization_domain_name = var.organization_domain_name
   development_group_roles  = []
-  admin_group_roles        = [
+  admin_group_roles = [
     "roles/iap.admin"
   ]
-  service_account_roles    = []
+  service_account_roles = []
   activate_apis = [
     "compute.googleapis.com",
     "container.googleapis.com",

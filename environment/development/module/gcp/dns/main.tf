@@ -26,12 +26,3 @@ resource "google_dns_managed_zone" "subdomain_zone" {
 
   depends_on = [module.dns_project]
 }
-
-# resource "google_dns_record_set" "dev_main_zone_ns" {
-#   name         = "${var.subdomain}.${var.domain_name}."
-#   type         = "NS"
-#   ttl          = 300
-#   managed_zone = google_dns_managed_zone.main_zone.name
-#   rrdatas      = google_dns_managed_zone.dev_main_zone.name_servers
-#   project      = module.dns_project.project_id
-# }
