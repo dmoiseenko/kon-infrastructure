@@ -149,3 +149,13 @@ resource "google_service_account_iam_member" "cert_manager" {
     google_container_cluster.primary
   ]
 }
+
+resource "google_service_account_iam_member" "vault" {
+  service_account_id = var.service_account_email
+  role               = "roles/iam.workloadIdentityUser"
+  member             = "serviceAccount:${var.project_id}.svc.id.goog[vault/vault]"
+
+  depends_on = [
+    google_container_cluster.primary
+  ]
+}

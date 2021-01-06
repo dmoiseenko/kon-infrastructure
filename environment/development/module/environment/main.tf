@@ -32,6 +32,7 @@ module "app_project" {
     "iam.googleapis.com",
     "iamcredentials.googleapis.com",
     "iap.googleapis.com",
+    "cloudkms.googleapis.com",
   ]
 }
 
