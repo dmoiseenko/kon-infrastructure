@@ -15,6 +15,17 @@ module "dns" {
   billing_account_id       = var.billing_account_id
   root_dns_name            = var.root_dns_name
   organization_domain_name = var.organization_domain_name
+  subdomain_records = [
+    {
+      subdomain = "dev"
+      rrdatas = [
+        "ns-cloud-c1.googledomains.com.",
+        "ns-cloud-c2.googledomains.com.",
+        "ns-cloud-c3.googledomains.com.",
+        "ns-cloud-c4.googledomains.com.",
+      ]
+    }
+  ]
 }
 
 module "registry" {

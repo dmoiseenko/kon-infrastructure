@@ -23,4 +23,15 @@ resource "google_dns_managed_zone" "root" {
   depends_on = [
     module.project,
   ]
+} 
+
+resource "google_dns_record_set" "dev_main_zone_ns" {
+  count = length(var.subdomain_records)
+
+  name         = "${var.subdomain_records[count.index].subdomain}.${var.root_dns_name}."
+  type         = "NS"
+  ttl          = 300
+  managed_zone = google_dns_managed_zone.root.name
+  rrdatas      = var.subdomain_records[count.index].rrdatas
+  project      = module.project.project_id
 }

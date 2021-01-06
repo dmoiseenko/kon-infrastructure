@@ -17,3 +17,7 @@ variable "root_dns_name" {
 variable "organization_domain_name" {
   type = string
 }
+
+variable "subdomain_records" {
+  type = list(object({ subdomain = string, rrdatas = list(string) }))
+}
