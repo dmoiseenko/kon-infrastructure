@@ -73,3 +73,7 @@ variable "terraform_service_account_email" {
 variable "gke_release_channel" {
   type = string
 }
+
+variable "secret_project_name" {
+  type = string
+}

@@ -47,6 +47,15 @@ module "dns" {
   subdomain                = var.subdomain
 }
 
+module "secret" {
+  source = "../gcp/secret"
+
+  project_name             = var.secret_project_name
+  billing_account_id       = var.billing_account_id
+  folder_id                = var.folder_id
+  organization_domain_name = var.organization_domain_name
+}
+
 module "vpc" {
   source  = "terraform-google-modules/network/google"
   version = "3.0.0"
@@ -90,31 +99,32 @@ module "shared_vpc_service" {
   ]
 }
 
-module "gke" {
-  source = "../gcp/gke"
+# module "gke" {
+#   source = "../gcp/gke"
 
-  project_id                     = module.app_project.project_id
-  domain_name                    = var.domain_name
-  cluster_name                   = var.gke_name
-  release_channel                = var.gke_release_channel
-  network_self_link              = module.vpc.network_self_link
-  subnetwork_self_link           = module.vpc.subnets_self_links[0]
-  pods_ip_range_name             = module.vpc.subnets_secondary_ranges[0][1].range_name
-  services_ip_range_name         = module.vpc.subnets_secondary_ranges[0][0].range_name
-  service_account_email          = module.app_project.service_account_email
-  service_account_name           = module.app_project.service_account_name
-  location                       = var.gke_location
-  is_preemptible_node            = var.gke_is_preemptible_node
-  machine_type                   = var.gke_machine_type
-  min_node_count                 = var.gke_min_node_count
-  max_node_count                 = var.gke_max_node_count
-  dns_project_id                 = module.dns.project_id
-  dns_admin_service_account_name = module.dns.dns_admin_service_account_name
+#   project_id                     = module.app_project.project_id
+#   domain_name                    = var.domain_name
+#   cluster_name                   = var.gke_name
+#   release_channel                = var.gke_release_channel
+#   network_self_link              = module.vpc.network_self_link
+#   subnetwork_self_link           = module.vpc.subnets_self_links[0]
+#   pods_ip_range_name             = module.vpc.subnets_secondary_ranges[0][1].range_name
+#   services_ip_range_name         = module.vpc.subnets_secondary_ranges[0][0].range_name
+#   service_account_email          = module.app_project.service_account_email
+#   service_account_name           = module.app_project.service_account_name
+#   location                       = var.gke_location
+#   is_preemptible_node            = var.gke_is_preemptible_node
+#   machine_type                   = var.gke_machine_type
+#   min_node_count                 = var.gke_min_node_count
+#   max_node_count                 = var.gke_max_node_count
+#   dns_project_id                 = module.dns.project_id
+#   dns_admin_service_account_name = module.dns.dns_admin_service_account_name
+#   vault_service_account_name     = module.secret.vault_service_account_name
 
-  depends_on = [
-    module.shared_vpc_service,
-  ]
-}
+#   depends_on = [
+#     module.shared_vpc_service,
+#   ]
+# }
 
 module "firewall" {
   source = "../gcp/firewall"

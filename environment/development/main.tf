@@ -5,11 +5,12 @@ module "development" {
 
   organization_domain_name = var.organization_domain_name
 
-  host_project_name  = "prj-d-kon"
-  app_project_name   = "prj-d-kon-app"
-  dns_project_name   = "prj-d-kon-dns"
-  billing_account_id = var.billing_account_id
-  folder_id          = var.folder_id
+  host_project_name   = "prj-d-kon"
+  app_project_name    = "prj-d-kon-app"
+  dns_project_name    = "prj-d-kon-dns"
+  secret_project_name = "prj-d-kon-secret"
+  billing_account_id  = var.billing_account_id
+  folder_id           = var.folder_id
 
   vpc_network_name = "vpc-d-kon"
   vpc_subnets = [

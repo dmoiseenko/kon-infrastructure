@@ -27,3 +27,8 @@ resource "google_project_service" "container" {
   project = google_project.tf-org.project_id
   service = "container.googleapis.com"
 }
+
+resource "google_project_service" "cloudkms" {
+  project = google_project.tf-org.project_id
+  service = "cloudkms.googleapis.com"
+}

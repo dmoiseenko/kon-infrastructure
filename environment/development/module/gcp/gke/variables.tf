@@ -70,3 +70,7 @@ variable "dns_project_id" {
 variable "release_channel" {
   type = string
 }
+
+variable "vault_service_account_name" {
+  type = string
+}
