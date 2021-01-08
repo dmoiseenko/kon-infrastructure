@@ -1,5 +1,3 @@
-data "google_client_config" "provider" {}
-
 module "development" {
   source = "./module/environment"
 

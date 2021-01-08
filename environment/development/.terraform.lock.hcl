@@ -23,17 +23,17 @@ provider "registry.terraform.io/deviavir/gsuite" {
 }
 
 provider "registry.terraform.io/gavinbunney/kubectl" {
-  version     = "1.9.1"
-  constraints = "1.9.1"
+  version     = "1.9.4"
+  constraints = "1.9.4"
   hashes = [
-    "h1:i6JTA5uPU6YAWH5hxa6iwR/EVuD215ET90k3khv3dzs=",
-    "zh:2c2c810e72e817563081752e0efbe70b14ef733f92e0e3d95e6b6a5261a6f176",
-    "zh:4914b7e1fce88f1217f4683d216c6171ee76fbb3417714e2fe5f441dc09b7098",
-    "zh:661a06154daa77c3a159ed54cc785bb3bb9e62120e94f8f685cffc7fdb70f408",
-    "zh:8b1f3aea98e10647e4c44948d0334cdf16756bf676c7844bb0c6a8515eaebb8d",
-    "zh:bd2ec3d93ed4da350fcf669fddc927b87a1031ce5f3656d48c9bef3c43e15a76",
-    "zh:c5e8656ad9cbc6f99980f11f02adeee3a56cc9c51e12735227a586af901c24b9",
-    "zh:d9e3dc2c2940d1d500c9fb3cf0fe7b553fb8e4e1f62e22059829bd6df7b90e79",
+    "h1:i/U6AFQ0carwoKyZTyePBMnz11UMZSE+7vgSPbRnqpA=",
+    "zh:4cde6a0dacb2046e501b906c67deafaf424162b7ffa827d3003d62ee1d815169",
+    "zh:4fe3a53b0bb96c0e78b98118797528afbdc3e7b1a3583eb9d239f2b3a9b38692",
+    "zh:5e6b9d915f9c3c92ff49b3bd9892a2d7007296132b9a713c8d08f20752f25d05",
+    "zh:95df66eb37f0cfd0dd5d5425be34be969c426fa7b143c6b197177b2113868ef2",
+    "zh:9f494b9fc0466f97d9a4bbc63c8946560114a682b881041d17168fc9b22d2ba6",
+    "zh:b8d52467766c20902ae0f6e0e93db32b72f7919d69d54d72bdb77920223b3e30",
+    "zh:bbe6f23a3596a5c7a8c0d61f77d45003ab7e83776ceb4f74bc9216914c38dfcc",
   ]
 }
 

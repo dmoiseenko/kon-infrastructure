@@ -56,3 +56,18 @@ resource "google_kms_crypto_key_iam_member" "crypto_key" {
   role          = google_project_iam_custom_role.vault-custom-role.name
   member        = "serviceAccount:${google_service_account.vault_service_account.email}"
 }
+
+resource "google_storage_bucket" "vault_storage" {
+  name                        = "vault-storage-${module.secret_project.project_id}"
+  project                     = module.secret_project.project_id
+  uniform_bucket_level_access = true
+  versioning {
+    enabled = true
+  }
+}
+
+resource "google_storage_bucket_iam_member" "service_account_storage_admin_vault_storage" {
+  bucket = google_storage_bucket.vault_storage.name
+  role   = "roles/storage.objectAdmin"
+  member = "serviceAccount:${google_service_account.vault_service_account.email}"
+}

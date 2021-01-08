@@ -58,12 +58,8 @@ resource "google_container_cluster" "primary" {
   }
 
   addons_config {
-    http_load_balancing {
-      disabled = false
-    }
-
-    horizontal_pod_autoscaling {
-      disabled = false
+    gce_persistent_disk_csi_driver_config {
+      enabled = true
     }
   }
 
@@ -79,7 +75,7 @@ resource "google_container_cluster" "primary" {
     gsuite_group.group_gke_security
   ]
   lifecycle {
-    ignore_changes = [node_config]
+    ignore_changes        = [node_config]
   }
 }
 

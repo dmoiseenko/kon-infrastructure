@@ -19,7 +19,7 @@ terraform {
     }
     kubectl = {
       source  = "gavinbunney/kubectl"
-      version = "1.9.1"
+      version = "1.9.4"
     }
   }
 }
@@ -40,10 +40,10 @@ provider "gsuite" {
   ]
 }
 
-provider "kubectl" {
-  load_config_file = false
+# provider "kubectl" {
+#   load_config_file = false
 
-  host                   = "https://${module.development.endpoint_gke}"
-  token                  = data.google_client_config.provider.access_token
-  cluster_ca_certificate = module.development.certificate_ca_gke
-}
+#   host                   = "https://${module.development.endpoint_gke}"
+#   token                  = data.google_client_config.provider.access_token
+#   cluster_ca_certificate = module.development.certificate_ca_gke
+# }

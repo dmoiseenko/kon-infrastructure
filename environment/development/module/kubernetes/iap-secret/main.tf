@@ -1,4 +1,4 @@
-resource "kubectl_manifest" "secter_namespace" {
+resource "kubectl_manifest" "secret_namespace" {
   yaml_body = <<YAML
       apiVersion: v1
       kind: Namespace

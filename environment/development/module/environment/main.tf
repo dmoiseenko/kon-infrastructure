@@ -69,6 +69,14 @@ module "vpc" {
   ]
 }
 
+module "firewall" {
+  source = "../gcp/firewall"
+
+  project_id                   = module.host_project.project_id
+  network_name                 = module.vpc.network_name
+  target_service_account_email = module.app_project.service_account_email
+}
+
 module "shared_vpc_host" {
   source = "../gcp/shared_vpc_host"
 
@@ -95,6 +103,18 @@ module "shared_vpc_service" {
     module.app_project,
     module.vpc,
     module.shared_vpc_host,
+  ]
+}
+
+module "iap" {
+  source = "../gcp/iap"
+
+  project_id                      = module.app_project.project_id
+  domain_name                     = var.domain_name
+  terraform_service_account_email = var.terraform_service_account_email
+
+  depends_on = [
+    module.app_project,
   ]
 }
 
@@ -125,38 +145,24 @@ module "gke" {
   ]
 }
 
-module "firewall" {
-  source = "../gcp/firewall"
+data "google_client_config" "provider" {}
 
-  project_id                   = module.host_project.project_id
-  network_name                 = var.vpc_network_name
-  target_service_account_email = module.app_project.service_account_email
+provider "kubectl" {
+  load_config_file = false
 
-  depends_on = [
-    module.vpc,
-  ]
-}
-
-module "iap" {
-  source = "../gcp/iap"
-
-  project_id                      = module.app_project.project_id
-  domain_name                     = var.domain_name
-  terraform_service_account_email = var.terraform_service_account_email
-
-  depends_on = [
-    module.app_project,
-  ]
+  host                   = "https://${module.gke.endpoint}"
+  token                  = data.google_client_config.provider.access_token
+  cluster_ca_certificate = module.gke.certificate_ca
 }
 
 module "iap-secret" {
   source = "../kubernetes/iap-secret"
 
-  namespace_name      = "istio-system1"
+  namespace_name      = "istio-system"
   oauth_client_id     = module.iap.oauth_client_id
   oauth_client_secret = module.iap.oauth_client_secret
 
   depends_on = [
-    module.gke,
+    module.gke
   ]
 }
