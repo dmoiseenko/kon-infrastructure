@@ -8,13 +8,13 @@ module "project" {
   service_account_roles    = []
   development_group_roles  = []
   activate_apis = [
-    "storage-api.googleapis.com"
+    "storage-api.googleapis.com",
   ]
 }
 
 resource "google_storage_bucket" "helm_repo" {
-  name    = "${module.project.project_id}-helm"
-  project = module.project.project_id
+  name                        = "${module.project.project_id}-helm"
+  project                     = module.project.project_id
   uniform_bucket_level_access = true
   versioning {
     enabled = true
