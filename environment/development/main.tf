@@ -38,7 +38,7 @@ module "development" {
   gke_is_preemptible_node = true
   gke_machine_type        = "e2-standard-2"
   gke_min_node_count      = 3
-  gke_max_node_count      = 3
+  gke_max_node_count      = 5
   gke_release_channel     = "REGULAR"
 
   domain_name = "dmoiseenko.me"
