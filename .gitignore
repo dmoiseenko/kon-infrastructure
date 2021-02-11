@@ -1,4 +1,5 @@
 .history
+naming_convention.md
 **/.terraform
 **/*.tfstate
 **/*.tfstate.backup
