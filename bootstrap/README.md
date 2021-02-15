@@ -1,4 +1,4 @@
-# tf_org_bootstrap
+# bootstrap
 
 ## Requirements
 
