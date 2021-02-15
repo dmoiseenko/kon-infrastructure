@@ -1,0 +1,2 @@
+workspaces { name = "denis_dev" }
+organization = "dmoiseenko"

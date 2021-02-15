@@ -1,0 +1,13 @@
+project_name = "terraform-291912"
+
+org_id = "4242712369198"
+
+billing_account = "01231F4-2327-3D4789"
+
+terraform_service_account_name = "sa-tf-org"
+
+group_org_admin = "group_org_admin@dmoiseenko.me"
+
+group_billing_admin = "group_billing_admin@dmoiseenko.me"
+
+group_network_admin = "group_network_admin@dmoiseenko.me"
